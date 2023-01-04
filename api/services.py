@@ -5,7 +5,7 @@ from .models import Note
 from .serializers import NoteSerializer
 
 
-def get_notes_list(_):
+def get_list_of_notes(_):
     notes = Note.objects.all().order_by('-updated')
     serializer = NoteSerializer(
         instance=notes,
@@ -14,7 +14,7 @@ def get_notes_list(_):
     return Response(serializer.data)
 
 
-def get_note_detail(_, pk):
+def get_note_details(_, pk):
     serializer = NoteSerializer(
         instance=get_object_or_404(Note, pk=pk),
         many=False,
@@ -24,7 +24,7 @@ def get_note_detail(_, pk):
 
 def create_note(request):
     note = Note.objects.create(
-        body=request.data['body']
+        body=request.data['body'],
     )
     serializer = NoteSerializer(
         instance=note,
@@ -36,7 +36,7 @@ def create_note(request):
 def update_note(request, pk):
     serializer = NoteSerializer(
         instance=get_object_or_404(Note, pk=pk),
-        data=request.data
+        data=request.data,
     )
 
     if serializer.is_valid():
