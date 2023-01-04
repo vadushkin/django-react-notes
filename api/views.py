@@ -1,6 +1,11 @@
-from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from api.services import get_notes_list, create_note, \
+    get_note_detail, update_note, delete_note
 
 
+@api_view(['GET'])
 def get_routes(request):
     routes = [
         {
@@ -34,4 +39,26 @@ def get_routes(request):
             'description': 'Deletes and exiting note'
         },
     ]
-    return JsonResponse(routes, safe=False)
+
+    return Response(routes)
+
+
+@api_view(['GET', 'POST'])
+def get_notes(request):
+    if request.method == 'GET':
+        return get_notes_list(request)
+
+    if request.method == 'POST':
+        return create_note(request)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def get_note(request, pk):
+    if request.method == 'GET':
+        return get_note_detail(request, pk)
+
+    if request.method == 'PUT':
+        return update_note(request, pk)
+
+    if request.method == 'DELETE':
+        return delete_note(request, pk)
