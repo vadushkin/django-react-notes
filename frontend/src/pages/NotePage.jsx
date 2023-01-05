@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {ReactComponent as ArrowLeft} from "../assets/arrow-left.svg";
 
 const NotePage = () => {
     const {id} = useParams();
@@ -16,8 +17,15 @@ const NotePage = () => {
     };
 
     return (
-        <div>
-            <h1>{note.body}</h1>
+        <div className="note">
+            <div className="note-header">
+                <h3 className="arrow">
+                    <Link to="/">
+                        <ArrowLeft/>
+                    </Link>
+                </h3>
+            </div>
+            <textarea defaultValue={note.body}></textarea>
         </div>
     );
 };
