@@ -1,12 +1,12 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from api.services import get_note_details, create_note, \
+from .services import get_note_details, create_note, \
     get_list_of_notes, update_note, delete_note
 
 
 @api_view(['GET'])
-def get_routes(request):
+def get_routes(_):
     routes = [
         {
             'Endpoint': '/notes/',

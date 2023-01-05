@@ -42,7 +42,7 @@ def update_note(request, pk):
     if serializer.is_valid():
         serializer.save()
 
-    return serializer.data
+    return Response(serializer.data)
 
 
 def delete_note(_, pk):
